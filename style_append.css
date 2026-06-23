@@ -1,0 +1,33 @@
+/* New UI elements */
+.code-big {
+    font-size: 3rem;
+    display: block;
+    margin: 10px 0;
+    letter-spacing: 5px;
+    font-weight: 800;
+}
+.loader {
+    border: 5px solid rgba(255,255,255,0.1);
+    border-top: 5px solid var(--primary);
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite;
+}
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+.players-waiting-box {
+    background: rgba(0,0,0,0.2);
+    border-radius: 10px;
+    padding: 15px;
+    margin: 20px 0;
+    max-height: 250px;
+    overflow-y: auto;
+}
+.players-waiting-box h3 {
+    margin-bottom: 15px;
+    font-size: 1.1rem;
+    color: var(--text-muted);
+}

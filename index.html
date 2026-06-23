@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anti-gravity: Hành Trình Đảo Ngược</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="app">
+        <!-- LOBBY SCREEN -->
+        <div id="lobby-screen" class="screen active">
+            <div class="glass-panel">
+                <h1 class="game-title">ANTI<span class="highlight">GRAVITY</span></h1>
+                <p class="subtitle">Đảo chiều trọng lực - Chinh phục không gian</p>
+                
+                <div id="role-selection">
+                    <button id="btn-show-student" class="btn primary-btn" style="margin-bottom: 15px;">Học Sinh Vào Phòng</button>
+                    <button id="btn-show-teacher" class="btn secondary-btn">Giáo Viên Tạo Phòng</button>
+                </div>
+
+                <form id="login-form" style="display: none;">
+                    <div class="input-group">
+                        <label for="player-name">Tên của bạn</label>
+                        <input type="text" id="player-name" placeholder="VD: Nguyễn Văn A" required maxlength="20">
+                    </div>
+                    <div class="input-group">
+                        <label for="room-id">Mã Lớp Học</label>
+                        <input type="text" id="room-id" placeholder="VD: A7B9K" required maxlength="10" autocomplete="off" style="text-transform: uppercase;">
+                    </div>
+                    <p id="lobby-error" class="error-msg"></p>
+                    <button type="submit" class="btn primary-btn">Vào Phòng Chơi</button>
+                    <button type="button" id="btn-back-role" class="btn secondary-btn">Quay lại</button>
+                </form>
+
+                <div id="teacher-creating" style="display: none; padding: 20px;">
+                    <div class="loader" style="margin: 0 auto 15px;"></div>
+                    <p>Đang khởi tạo máy chủ phòng học...</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- WAITING SCREEN -->
+        <div id="waiting-screen" class="screen">
+            <div class="glass-panel">
+                <h2>Đã vào phòng!</h2>
+                <p>Mã phòng: <strong id="wait-room-id" class="highlight code-big" style="font-size: 2rem;"></strong></p>
+                <div class="loader" style="margin: 30px auto;"></div>
+                <p class="subtitle">Vui lòng đợi giáo viên ấn BẮT ĐẦU...</p>
+            </div>
+        </div>
+
+        <!-- TEACHER DASHBOARD -->
+        <div id="teacher-dashboard" class="screen">
+            <div class="glass-panel" style="max-width: 600px;">
+                <h2>Bảng Điều Khiển Giáo Viên</h2>
+                <div class="room-code-display">
+                    Mã phòng của bạn: <strong id="dash-room-id" class="highlight code-big"></strong>
+                </div>
+                <p class="subtitle">Yêu cầu học sinh nhập mã này để vào phòng</p>
+                
+                <div class="players-waiting-box">
+                    <h3>Học sinh đã vào (<span id="player-count">0</span>):</h3>
+                    <ul id="dash-players-list" class="leaderboard-list">
+                        <!-- Sẽ được render bởi JS -->
+                    </ul>
+                </div>
+
+                <div class="action-buttons">
+                    <button id="btn-start-game" class="btn primary-btn" style="background: linear-gradient(135deg, var(--accent), #34d399); display: none;">BẮT ĐẦU GAME</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- GAME SCREEN -->
+        <div id="game-screen" class="screen">
+            <div class="game-header">
+                <div class="room-info">Phòng: <span id="hud-room">---</span></div>
+                <div class="score-info">Điểm: <span id="hud-score">0</span></div>
+            </div>
+            <div class="canvas-container">
+                <canvas id="game-canvas" width="800" height="400"></canvas>
+                <div id="game-instruction" class="floating-text">Nhấn SPACE hoặc CHẠM để bắt đầu & đảo trọng lực!</div>
+            </div>
+        </div>
+
+        <!-- LEADERBOARD SCREEN -->
+        <div id="leaderboard-screen" class="screen">
+            <div class="glass-panel leaderboard-panel">
+                <h2>Bảng Xếp Hạng Lớp: <span id="lb-room-name"></span></h2>
+                <div class="your-score">Điểm của bạn: <span id="lb-your-score">0</span></div>
+                
+                <ul id="leaderboard-list" class="leaderboard-list">
+                    <!-- Sẽ được render bởi JS -->
+                </ul>
+
+                <div class="action-buttons">
+                    <button id="btn-play-again" class="btn primary-btn">Chơi Lại</button>
+                    <button id="btn-leave-room" class="btn secondary-btn">Rời Phòng</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+    <script src="multiplayer.js"></script>
+    <script src="game.js"></script>
+</body>
+</html>
